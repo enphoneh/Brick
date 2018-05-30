@@ -1,2 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.aven.brick.core"/>
+          package="com.aven.brick.core">
+
+    <application>
+        <activity android:name=".subActivity"> </activity>
+    </application>
+</manifest>
