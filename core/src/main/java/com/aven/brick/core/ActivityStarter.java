@@ -36,6 +36,18 @@ public class ActivityStarter {
         return cn.getClassName();
     }
 
+    public static void replaceWithStub(Context context, Intent intent) {
+        ComponentName cn = intent.getComponent();
+        if (cn == null) {
+            // Action Intent, do not modify intent
+            return;
+        }
+
+        ComponentName newCn = new ComponentName(context.getPackageName(), "com.aven.brick.core.subActivity");
+        intent.setComponent(newCn);
+        intent.putExtra(EXTRA_OLD_CN, cn);
+    }
+
     private static void startActivityInner(Context context, Intent intent) {
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

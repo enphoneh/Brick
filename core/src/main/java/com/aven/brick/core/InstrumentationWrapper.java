@@ -3,6 +3,7 @@ package com.aven.brick.core;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
+import android.app.Fragment;
 import android.app.Instrumentation;
 import android.app.UiAutomation;
 import android.content.ComponentName;
@@ -14,9 +15,11 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PersistableBundle;
+import android.os.UserHandle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import com.aven.brick.utils.Reflector;
 
 /**
  * @author : Aven
@@ -362,5 +365,36 @@ public class InstrumentationWrapper extends Instrumentation {
         return mDelegate.getUiAutomation();
     }
 
+    public ActivityResult execStartActivity(
+        Context who, IBinder contextThread, IBinder token, Activity target,
+        Intent intent, int requestCode, Bundle options) {
+        ActivityStarter.replaceWithStub(who, intent);
+        return Reflector.on(mDelegate).call("execStartActivity", who, contextThread, token, target, intent
+        , requestCode, options).get();
+    }
+
+    public ActivityResult execStartActivity(
+        Context who, IBinder contextThread, IBinder token, String target,
+        Intent intent, int requestCode, Bundle options) {
+        ActivityStarter.replaceWithStub(who, intent);
+        return Reflector.on(mDelegate).call("execStartActivity", who, contextThread, token, target, intent
+            , requestCode, options).get();
+    }
+
+    public ActivityResult execStartActivity(
+        Context who, IBinder contextThread, IBinder token, Activity target,
+        Intent intent, int requestCode, Bundle options, UserHandle user) {
+        ActivityStarter.replaceWithStub(who, intent);
+        return Reflector.on(mDelegate).call("execStartActivity", who, contextThread, token, target, intent
+            , requestCode, options, user).get();
+    }
+
+    public ActivityResult execStartActivity(
+        Context who, IBinder contextThread, IBinder token, Fragment target,
+        Intent intent, int requestCode, Bundle options) {
+        ActivityStarter.replaceWithStub(who, intent);
+        return Reflector.on(mDelegate).call("execStartActivity", who, contextThread, token, target, intent
+            , requestCode, options).get();
+    }
 
 }
