@@ -265,6 +265,11 @@ public class Reflector {
     public Reflector set(String name, Object value) throws ReflectException {
         try {
             Field field = field0(name);
+            try {
+                removeFieldFinalModifier(field);
+            } catch (Throwable ig) {
+
+            }
             field.set(object, unwrap(value));
             return this;
         }
@@ -866,6 +871,33 @@ public class Reflector {
         }
 
         return type;
+    }
+
+    public static void removeFieldFinalModifier(final Field field) {
+        // From Apache: FieldUtils.removeFinalModifier()
+        Validate.isTrue(field != null, "The field must not be null");
+
+        try {
+            if (Modifier.isFinal(field.getModifiers())) {
+                // Do all JREs implement Field with a private ivar called "modifiers"?
+                final Field modifiersField = Field.class.getDeclaredField("modifiers");
+                final boolean doForceAccess = !modifiersField.isAccessible();
+                if (doForceAccess) {
+                    modifiersField.setAccessible(true);
+                }
+                try {
+                    modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                } finally {
+                    if (doForceAccess) {
+                        modifiersField.setAccessible(false);
+                    }
+                }
+            }
+        } catch (final NoSuchFieldException ignored) {
+            // The field class contains always a modifiers field
+        } catch (final IllegalAccessException ignored) {
+            // The modifiers field is made accessible
+        }
     }
 
     private static class NULL {}

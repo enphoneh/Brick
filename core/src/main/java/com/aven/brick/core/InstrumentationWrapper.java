@@ -19,6 +19,7 @@ import android.os.UserHandle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import com.aven.brick.core.compomnent.activity.ActivityStarter;
 import com.aven.brick.utils.Reflector;
 
 /**

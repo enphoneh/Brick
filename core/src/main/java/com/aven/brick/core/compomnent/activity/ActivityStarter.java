@@ -1,4 +1,4 @@
-package com.aven.brick.core;
+package com.aven.brick.core.compomnent.activity;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -43,7 +43,7 @@ public class ActivityStarter {
             return;
         }
 
-        ComponentName newCn = new ComponentName(context.getPackageName(), "com.aven.brick.core.subActivity");
+        ComponentName newCn = new ComponentName(context.getPackageName(), ActivityStubConst.ACTIVITY_STANDER);
         intent.setComponent(newCn);
         intent.putExtra(EXTRA_OLD_CN, cn);
     }

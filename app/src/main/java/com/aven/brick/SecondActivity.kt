@@ -12,6 +12,7 @@ class SecondActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second);
+//        setTheme(R.style.AppTheme)
+        setContentView(R.layout.activity_second)
     }
 }

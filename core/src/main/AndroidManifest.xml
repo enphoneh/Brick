@@ -2,6 +2,6 @@
           package="com.aven.brick.core">
 
     <application>
-        <activity android:name=".subActivity"> </activity>
+        <activity android:name=".StubActivity"> </activity>
     </application>
 </manifest>
